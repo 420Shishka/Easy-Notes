@@ -1,3 +1,4 @@
+// Creates element
 const DOM = {
 
     /**

@@ -11,12 +11,9 @@ const NotesStorage = {
     findAll() {
         const keys = Object.keys(localStorage);
         const notes = keys.map(key => this.findOne(key));
+        const sortedNotes = notes.sort((a, b) => b.id - a.id);
 
-        return notes.sort((a, b) => {
-            if (Number(a) > Number(b)) return 1;
-            if (Number(a) < Number(b)) return -1;
-            return 0;
-        });
+        return sortedNotes;
     },
     save(id, data) {
         localStorage.setItem(id, JSON.stringify(data));
@@ -25,11 +22,6 @@ const NotesStorage = {
     },
     delete(id) {
         localStorage.removeItem(id);
-
-        return this;
-    },
-    purge() {
-        localStorage.clear();
 
         return this;
     },
