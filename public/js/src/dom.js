@@ -17,7 +17,7 @@ const DOM = {
             'ul', 'li',
             'div', 'span',
             'button',
-            'i',
+            'i', 'pre',
         ];
 
         if (!availableTags.includes(tagName)) {
@@ -31,7 +31,11 @@ const DOM = {
         }
 
         if ('classString' in options) {
-            element.classList.add(options.classString);
+            const classes = options.classString.split(' ');
+
+            classes.forEach(className => {
+                element.classList.add(className);
+            });
         }
 
         if ('html' in options) {

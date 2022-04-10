@@ -56,6 +56,30 @@ document.addEventListener('click', evt => {
     }
 });
 
+// Enables save when Enter is pressed
+document.addEventListener('keypress', evt => {
+    const target = evt.target;
+    const isEnterPressed = evt.code === 'Enter';
+    const isShiftPressed = evt.shiftKey;
+
+    // If Shift + Enter pressed do nothing
+    if (isEnterPressed && isShiftPressed) {
+        return false;
+    }
+
+    // If pressed single enter
+    if (target.classList.contains('note__text') && isEnterPressed) {
+        const note = target.closest('.note');
+
+        evt.preventDefault();
+        toggleNoteText(note);
+
+        return false;
+    }
+});
+
+
+// Updates note while user writes some text to note
 document.addEventListener('keyup', evt => {
     const target = evt.target;
 
@@ -64,4 +88,4 @@ document.addEventListener('keyup', evt => {
 
         return updateNote(note);
     }
-})
+});

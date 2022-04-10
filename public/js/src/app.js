@@ -20,6 +20,35 @@ const selectContent = (targetElement) => {
     selection.addRange(range);
 }
 
+const trimContent = (targetElement) => {
+    // Get lines as array of string
+    const lines = targetElement.innerHTML.split('<br>');
+
+    // Get indexes where content exists
+    const contentLinesIndexes = lines.reduce((result, line, index) => {
+        if (!line) return result;
+
+        result.push(index);
+        return result;
+    }, []);
+
+    // Get start and end indexes of content
+    const startIndex = contentLinesIndexes[0];
+    const endIndex = contentLinesIndexes[contentLinesIndexes.length - 1];
+
+    // Filter lines before content starts and after content ends
+    const trimmedLines = lines.filter((line, index) => {
+        return (
+            index >= startIndex
+            &&
+            index <= endIndex
+        );
+    });
+
+    // Set result content of block
+    targetElement.innerHTML = trimmedLines.join('<br>');
+}
+
 const toggleNoteText = (note, doSelection = false) => {
     const noteText = note.querySelector('.note__text');
     const notes = document.querySelectorAll('.note__text');
@@ -28,6 +57,8 @@ const toggleNoteText = (note, doSelection = false) => {
         if (note === noteText) return;
         note.classList.remove('shown');
     });
+
+    trimContent(noteText);
 
     noteText.classList.toggle('shown');
     setFocus(noteText);

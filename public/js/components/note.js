@@ -48,7 +48,16 @@ const Note = {
 
         return DOM.create('div', {
             classString: 'note__preview',
-            html: previewText,
+            html: [
+                DOM.create('div', {
+                    classString: 'note__preview-text',
+                    html: previewText,
+                }),
+                DOM.create('div', {
+                    classString: 'note__preview-date fade',
+                    html: this.getDate(data),
+                }),
+            ],
         });
     },
     getButtons() {
@@ -70,12 +79,18 @@ const Note = {
         });
     },
     getText(data) {
-        return DOM.create('div', {
+        return DOM.create('pre', {
             classString: 'note__text',
             html: data.text,
             attr: {
                 contentEditable: true,
             },
         });
-    }
+    },
+    getDate(data) {
+        const timestamp = Number(data.id);
+        const date = new Date(timestamp);
+
+        return date.toLocaleDateString();
+    },
 }
