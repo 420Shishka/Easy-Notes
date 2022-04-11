@@ -59,7 +59,7 @@ document.addEventListener('click', evt => {
 // Enables save when Enter is pressed
 document.addEventListener('keypress', evt => {
     const target = evt.target;
-    const isEnterPressed = evt.code === 'Enter';
+    const isEnterPressed = evt.key === 'Enter';
     const isShiftPressed = evt.shiftKey;
 
     // If Shift + Enter pressed do nothing
