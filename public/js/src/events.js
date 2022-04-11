@@ -58,6 +58,8 @@ document.addEventListener('click', evt => {
 
 // Enables save when Enter is pressed
 document.addEventListener('keypress', evt => {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
     const target = evt.target;
     const isEnterPressed = evt.key === 'Enter';
     const isShiftPressed = evt.shiftKey;
@@ -68,7 +70,7 @@ document.addEventListener('keypress', evt => {
     }
 
     // If pressed single enter
-    if (target.classList.contains('note__text') && isEnterPressed) {
+    if (target.classList.contains('note__text') && isEnterPressed && !isIOS) {
         const note = target.closest('.note');
 
         evt.preventDefault();
