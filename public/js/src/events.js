@@ -58,7 +58,10 @@ document.addEventListener('click', evt => {
 
 // Enables save when Enter is pressed
 document.addEventListener('keypress', evt => {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    // Check that user used mobile browser or not
+    const isMobile = (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    );
 
     const target = evt.target;
     const isEnterPressed = evt.key === 'Enter';
@@ -70,7 +73,7 @@ document.addEventListener('keypress', evt => {
     }
 
     // If pressed single enter
-    if (target.classList.contains('note__text') && isEnterPressed && !isIOS) {
+    if (target.classList.contains('note__text') && isEnterPressed && !isMobile) {
         const note = target.closest('.note');
 
         evt.preventDefault();
